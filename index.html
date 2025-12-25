@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Light Radio 93.9fm</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root {
+    --orange: #FFA500;
+    --bleu-marine: #1B1464;
+    --bleu-ciel: #87CEEB;
+    --jaune: #FFD700;
+    --blanc: #FFFFFF;
+    --gris-fonce: #333333;
+    --violet: #8A2BE2;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    background: linear-gradient(-45deg, #1B1464, #FFA500, #87CEEB, #8A2BE2);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  /* Canvas particules */
+  #particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
+  }
+
+  header.header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 30px;
+    background-color: var(--bleu-marine);
+    color: var(--blanc);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header.header .logo h1 { margin:0; font-size:24px; }
+  .top-menu a {
+    margin-left:15px;
+    text-decoration:none;
+    color: var(--blanc);
+    font-weight:bold;
+    transition: 0.3s;
+  }
+  .top-menu a:hover { color: var(--orange); }
+
+  .container { display:flex; gap:20px; padding:20px; flex-wrap: wrap; }
+
+  /* Sidebar */
+  .sidebar {
+    background-color: var(--bleu-marine);
+    padding:20px;
+    min-width:220px;
+    color: var(--blanc);
+    height:100%;
+    position:sticky;
+    top:0;
+    border-radius:10px;
+    flex-shrink:0;
+    animation: fadeSlide 1s ease forwards;
+  }
+  .sidebar ul { list-style:none; padding:0; margin:0; }
+  .sidebar ul li { margin-bottom:15px; }
+  .sidebar ul li a {
+    color: var(--blanc);
+    text-decoration:none;
+    font-weight:bold;
+    display:block;
+    padding:8px 12px;
+    border-radius:5px;
+    transition:0.3s;
+  }
+  .sidebar ul li a:hover { background-color: var(--orange); color: var(--bleu-marine); }
+
+  /* Main content */
+  .main-content { flex:1; }
+
+  /* Bienvenue */
+  .hero {
+    background-color: var(--bleu-ciel);
+    padding:40px 20px;
+    margin-bottom:30px;
+    border-radius:20px;
+    text-align:center;
+    color: var(--bleu-marine);
+    animation: fadeSlide 1s ease forwards;
+  }
+  .hero h2 { font-size:32px; margin-bottom:10px; }
+  .hero p { font-size:18px; }
+
+  /* Lecteur radio */
+  #radio-card {
+    background-color: var(--blanc);
+    padding:30px;
+    border-radius:20px;
+    color: var(--gris-fonce);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    max-width:350px;
+    width:100%;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    flex:1 1 300px;
+    margin-bottom:20px;
+    animation: fadeSlide 1.2s ease forwards;
+  }
+  #radio-card img { width:100px; border-radius:50%; margin-bottom:15px; background-color: var(--blanc); padding:10px; }
+  #radio-card h2 { margin:10px 0; }
+  #radio-card p { font-weight:bold; font-size:16px; margin-bottom:15px; }
+  #playPauseBtn {
+    background: var(--violet);
+    border:none;
+    color:white;
+    font-size:20px;
+    padding:15px 30px;
+    border-radius:50px;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    transition:0.3s;
+    margin-bottom:15px;
+  }
+  #playPauseBtn:hover { transform:scale(1.05); }
+
+  /* Bars animation */
+  .bars { display:flex; justify-content:center; gap:4px; margin-bottom:15px; }
+  .bar { width:5px; height:20px; background:var(--violet); border-radius:2px; animation:bounce 1s infinite; }
+  .bar:nth-child(2) { animation-delay:0.2s; height:15px;}
+  .bar:nth-child(3) { animation-delay:0.4s; height:25px;}
+  .bar:nth-child(4) { animation-delay:0.6s; height:18px;}
+  .bar:nth-child(5) { animation-delay:0.8s; height:22px;}
+  @keyframes bounce {0%,100% {transform: scaleY(0.3);} 50% {transform: scaleY(1);} }
+
+  /* YouTube */
+  #live-video {
+    max-width:560px;
+    width:100%;
+    height:315px;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+    flex:1 1 300px;
+    animation: fadeSlide 1.4s ease forwards;
+  }
+
+  /* Sections Invité du jour & ON AIR */
+  .bottom-cards {
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:20px;
+    flex-wrap:wrap;
+    animation: fadeSlide 1.6s ease forwards;
+  }
+  .bottom-card {
+    background-color: var(--orange);
+    padding:15px 20px;
+    border-radius:15px;
+    color: var(--blanc);
+    text-align:center;
+    flex:1 1 150px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  }
+  .bottom-card h4 { margin-bottom:8px; }
+  .bottom-card p { font-size:14px; }
+
+  /* Productions */
+  .emissions {
+    margin-top:40px;
+    padding:20px;
+    border-radius:15px;
+    background-color: rgba(255,255,255,0.9);
+    animation: fadeSlide 1.8s ease forwards;
+  }
+  .grid-emissions { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+  .emission-card {
+    background-color: var(--bleu-ciel);
+    padding:15px 20px;
+    border-radius:15px;
+    text-align:center;
+    flex:1 1 200px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    color: var(--bleu-marine);
+  }
+  .emission-card h4 { margin-bottom:8px; }
+  .emission-card p { font-size:14px; margin-bottom:8px; }
+  .emission-card a { text-decoration:none; color: var(--orange); font-weight:bold; }
+
+  /* Présentation */
+  .about {
+    margin-top:40px;
+    padding:20px;
+    border-radius:15px;
+    background-color: rgba(255,255,255,0.9);
+    color: var(--gris-fonce);
+    animation: fadeSlide 2s ease forwards;
+  }
+
+  footer.footer {
+    text-align:center;
+    padding:20px;
+    margin-top:30px;
+    background-color: var(--bleu-marine);
+    color: var(--blanc);
+    border-radius:10px;
+    animation: fadeSlide 2.2s ease forwards;
+  }
+
+  @keyframes fadeSlide { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+
+<!-- Particules -->
+<div id="particles-js"></div>
+
+<header class="header">
+  <div class="logo" style="display:flex; align-items:center; gap:15px;">
+    <!-- Conteneur blanc pour le logo -->
+    <div style="background-color: var(--blanc); padding:5px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+      <img src="logo radio.png" alt="logo" width="50">
+    </div>
+    <h1 style="margin:0; color: var(--blanc);">Light Radio 93.9FM</h1>
+  </div>
+
+  <div class="top-menu">
+    <a href="index.html">Écouter</a>
+    <a href="don.html">Don</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://facebook.com/tonpage" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://twitter.com/toncompte" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://instagram.com/toncompte" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com/toncompte" target="_blank"><i class="fab fa-youtube"></i></a>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="sidebar">
+    <ul>
+      <li><a href="index.html">🏠 Accueil</a></li>
+      <li><a href="presentation.html">👥 Notre Équipe</a></li>
+      <li><a href="podcast.html">🎧 Podcast</a></li>
+      <li><a href="grille.html">📘 Grille de programmes</a></li>
+      <li><a href="actualites.html">📰 Actualités</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <section class="hero">
+      <h2>Bienvenue sur Light Radio 93.9fm</h2>
+      <p>Votre source d’inspiration et de musique.</p>
+    </section>
+
+    <section id="ecouter" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+      <div id="radio-card">
+        <img src="logo radio.png" alt="Light Radio Logo">
+        <h2>Light Radio Togo</h2>
+        <p id="live-status">🔴 En direct</p>
+        <button id="playPauseBtn">▶️ Lecture</button>
+        <div class="bars">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <audio id="player" src="https://listen.radioking.com/radio/508756/stream/566446" type="audio/mpeg"></audio>
+      </div>
+
+      <div id="live-video">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/live_stream?channel=UCXXXXXXX"
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <div class="bottom-cards">
+      <div class="bottom-card">
+        <h4>Invité du jour</h4>
+        <p>Jean-Pierre, Auteur Chrétien</p>
+      </div>
+      <div class="bottom-card">
+        <h4>ON AIR</h4>
+        <p>Émission actuelle: VIP – L’invité</p>
+      </div>
+    </div>
+
+    <section id="productions" class="emissions">
+      <h3>Nos productions</h3>
+      <div class="grid-emissions">
+        <div class="emission-card">
+          <h4>VIP – L’invité</h4>
+          <p>Invité spécial du mois</p>
+          <a href="#">Lire +</a>
+        </div>
+        <div class="emission-card">
+          <h4>ON AIR</h4>
+          <p>Émission actuelle</p>
+          <a href="#">Lire +</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="presentation" class="about">
+      <h3>Présentation</h3>
+      <p>Light Radio 93.9fm est une station dédiée à la diffusion de contenus inspirants, culturels et chrétiens.
+      Notre mission est d’apporter la lumière de l’Évangile à travers la musique, les enseignements et les témoignages.</p>
+    </section>
+
+    <footer class="footer">
+      <p>© 2025 Light Radio 93.9fm | Tous droits réservés</p>
+    </footer>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+particlesJS("particles-js", {
+  "particles": {
+    "number": {"value": 80},
+    "color": {"value": "#ffffff"},
+    "shape": {"type": "circle"},
+    "opacity": {"value":0.5,"random":true},
+    "size": {"value":3,"random":true},
+    "line_linked": {"enable":true,"distance":150,"color":"#ffffff","opacity":0.2,"width":1},
+    "move": {"enable":true,"speed":2,"direction":"none","random":true,"straight":false}
+  },
+  "interactivity": {
+    "detect_on":"canvas",
+    "events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"}},
+    "modes":{"repulse":{"distance":100},"push":{"particles_nb":4}}
+  },
+  "retina_detect": true
+});
+
+/* Lecteur audio */
+const player = document.getElementById('player');
+const btn = document.getElementById('playPauseBtn');
+const liveStatus = document.getElementById('live-status');
+btn.addEventListener('click', () => {
+  if (player.paused) {
+    player.play();
+    btn.textContent = '⏸️ Pause';
+    liveStatus.textContent = '🔴 En direct';
+  } else {
+    player.pause();
+    btn.textContent = '▶️ Lecture';
+    liveStatus.textContent = '⏸️ En pause';
+  }
+});
+</script>
+</body>
+</html>

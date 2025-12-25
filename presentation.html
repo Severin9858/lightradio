@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Présentation de l’équipe | Light Radio 93.9FM</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root {
+    --orange: #FFA500;
+    --bleu-marine: #1B1464;
+    --bleu-ciel: #87CEEB;
+    --jaune: #FFD700;
+    --blanc: #FFFFFF;
+    --gris-fonce: #333333;
+    --violet: #8A2BE2;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    background: linear-gradient(-45deg, #1B1464, #FFA500, #87CEEB, #8A2BE2);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  #particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top:0;
+    left:0;
+  }
+
+  header.header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 30px;
+    background-color: var(--bleu-marine);
+    color: var(--blanc);
+    position: sticky;
+    top:0;
+    z-index: 10;
+  }
+
+  header.header .logo {
+    display:flex;
+    align-items:center;
+    gap:15px;
+  }
+  header.header .logo img {
+    background-color: var(--blanc);
+    padding:5px;
+    border-radius:10px;
+  }
+  header.header .logo h1 {
+    margin:0;
+    color: var(--blanc);
+    font-size:24px;
+  }
+
+  .top-menu a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: var(--blanc);
+    font-weight: bold;
+    transition:0.3s;
+  }
+  .top-menu a:hover { color: var(--orange); }
+
+  .container { display:flex; gap:20px; padding:20px; flex-wrap:wrap; }
+
+  .sidebar {
+    background-color: var(--bleu-marine);
+    padding: 20px;
+    min-width:220px;
+    color: var(--blanc);
+    height:100%;
+    position:sticky;
+    top:0;
+    border-radius:10px;
+    animation: fadeSlide 1s ease forwards;
+  }
+
+  .sidebar ul { list-style:none; padding:0; margin:0; }
+  .sidebar ul li { margin-bottom:15px; }
+  .sidebar ul li a {
+    color: var(--blanc);
+    text-decoration:none;
+    font-weight:bold;
+    display:block;
+    padding:8px 12px;
+    border-radius:5px;
+    transition:0.3s;
+  }
+  .sidebar ul li a:hover,
+  .sidebar ul li a.active { background-color: var(--orange); color: var(--bleu-marine); }
+
+  .main-content { flex:1; }
+
+  /* Section équipe */
+  .team-section {
+    animation: fadeSlide 1.2s ease forwards;
+  }
+  .team-section h2 {
+    text-align:center;
+    color: var(--bleu-marine);
+    margin-bottom:10px;
+  }
+  .team-section .intro {
+    text-align:center;
+    margin-bottom:30px;
+    color: var(--gris-fonce);
+  }
+  .team-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:20px;
+  }
+  .team-card {
+    background-color: var(--blanc);
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    text-align:center;
+    padding:15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .team-card:hover {
+    transform: translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  }
+  .team-card img {
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-bottom:3px solid var(--orange);
+    border-radius:10px;
+    margin-bottom:10px;
+  }
+  .team-card h3 { margin:10px 0 5px 0; color: var(--bleu-marine); }
+  .team-card h4 { color: var(--orange); margin-bottom:10px; }
+  .team-card p { font-size:14px; margin:5px 0; }
+
+  footer.footer {
+    text-align:center;
+    padding:20px;
+    background-color: var(--bleu-marine);
+    color: var(--blanc);
+    margin-top:30px;
+    border-radius:10px;
+    animation: fadeSlide 1.4s ease forwards;
+  }
+
+  @keyframes fadeSlide { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+</style>
+</head>
+
+<body>
+<!-- Particules -->
+<div id="particles-js"></div>
+
+<header class="header">
+  <div class="logo">
+    <img src="logo radio.png" alt="logo" width="50">
+    <h1>Light Radio 93.9FM</h1>
+  </div>
+
+  <div class="top-menu">
+    <a href="index.html">Écouter</a>
+    <a href="don.html">Don</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://facebook.com/tonpage" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://twitter.com/toncompte" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://instagram.com/toncompte" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com/toncompte" target="_blank"><i class="fab fa-youtube"></i></a>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="sidebar">
+    <ul>
+      <li><a href="index.html">🏠 Accueil</a></li>
+      <li><a href="presentation.html" class="active">👥 Notre Équipe</a></li>
+      <li><a href="podcast.html">🎧 Podcast</a></li>
+      <li><a href="grille.html">📘 Grille de programmes</a></li>
+      <li><a href="actualites.html">📰 Actualités</a></li>
+    </ul>
+  </nav>
+  <main class="main-content">
+    <section class="team-section">
+      <h2>Notre Équipe</h2>
+      <p class="intro">
+        Découvrez les hommes et les femmes passionnés qui animent et dirigent
+        <strong>Light Radio 93.9FM</strong>.
+      </p>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="equipe1.jpg" alt="Jean Kossi">
+          <h3>Jean Kossi</h3>
+          <h4>Directeur Général</h4>
+          <p>Jean est le fondateur de Light Radio. Passionné de communication, il supervise la vision et la mission de la station.</p>
+          <p><strong>Email :</strong> jean.kossi@lightradio.fm</p>
+        </div>
+
+        <div class="team-card">
+          <img src="equipe2.jpg" alt="Sarah Améyo">
+          <h3>Sarah Améyo</h3>
+          <h4>Responsable des Programmes</h4>
+          <p>Sarah planifie et coordonne les émissions quotidiennes de Light Radio avec créativité et passion.</p>
+          <p><strong>Email :</strong> sarah.ameyo@lightradio.fm</p>
+        </div>
+
+        <div class="team-card">
+          <img src="equipe3.jpg" alt="Michael Dossou">
+          <h3>Michael Dossou</h3>
+          <h4>Technicien Radio</h4>
+          <p>Michael s’assure de la qualité du son à l’antenne et gère la partie technique de la diffusion.</p>
+          <p><strong>Email :</strong> michael.dossou@lightradio.fm</p>
+        </div>
+
+        <div class="team-card">
+          <img src="equipe4.jpg" alt="Grace Tchalla">
+          <h3>Grace Tchalla</h3>
+          <h4>Animatrice</h4>
+          <p>Grace anime plusieurs émissions gospel avec énergie et un grand sourire, pour inspirer nos auditeurs.</p>
+          <p><strong>Email :</strong> grace.tchalla@lightradio.fm</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="footer">
+  <p>© 2025 Light Radio 93.9FM | Tous droits réservés</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+particlesJS("particles-js", {
+  "particles": {
+    "number": {"value": 80},
+    "color": {"value": "#ffffff"},
+    "shape": {"type": "circle"},
+    "opacity": {"value":0.5,"random":true},
+    "size": {"value":3,"random":true},
+    "line_linked": {"enable":true,"distance":150,"color":"#ffffff","opacity":0.2,"width":1},
+    "move": {"enable":true,"speed":2,"direction":"none","random":true,"straight":false}
+  },
+  "interactivity": {
+    "detect_on":"canvas",
+    "events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"}},
+    "modes":{"repulse":{"distance":100},"push":{"particles_nb":4}}
+  },
+  "retina_detect": true
+});
+</script>
+</body>
+</html>
